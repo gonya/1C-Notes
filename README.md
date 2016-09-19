@@ -1,12 +1,13 @@
 # 1C-Notes
-====== Установка сервера 1С Предприятия ======
+### Установка сервера 1С Предприятия
 
-===== Установка Samba Windows shares ====
-<code bash>
+## Установка Samba Windows shares
+```
 apt-get install mc htop
 mkdir /home/smb && chown -R nobody:nogroup /home/smb && chmod -R 777 /home/smb && echo [smb] >> /etc/samba/smb.conf && echo comment = smb >> /etc/samba/smb.conf && echo  path = /home/smb >> /etc/samba/smb.conf && echo     guest ok = yes >> /etc/samba/smb.conf && echo     read only = no >> /etc/samba/smb.conf  && /etc/init.d/smbd restart
-</code>
-===== Необходимые компоненты =====
+```
+
+## Необходимые компоненты
    apt-get install  libssl0.9.8 libossp-uuid16 libxslt1.1 libicu52 libt1-5 t1utils imagemagick unixodbc texlive-base libgfs-1.3-2 ttf-mscorefonts-installer
    apt-get install apache2
 
