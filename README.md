@@ -2,17 +2,25 @@
 ## Установка сервера 1С Предприятия
 
 ### Установка Samba Windows shares
-```
+```bash
 apt-get install mc htop
-mkdir /home/smb && chown -R nobody:nogroup /home/smb && chmod -R 777 /home/smb && echo [smb] >> /etc/samba/smb.conf && echo comment = smb >> /etc/samba/smb.conf && echo  path = /home/smb >> /etc/samba/smb.conf && echo     guest ok = yes >> /etc/samba/smb.conf && echo     read only = no >> /etc/samba/smb.conf  && /etc/init.d/smbd restart
+mkdir /home/smb
+chown -R nobody:nogroup /home/smb
+chmod -R 777 /home/smb && echo [smb] >> /etc/samba/smb.conf
+echo comment = smb >> /etc/samba/smb.conf
+echo  path = /home/smb >> /etc/samba/smb.conf
+echo     guest ok = yes >> /etc/samba/smb.conf
+echo     read only = no >> /etc/samba/smb.conf
+/etc/init.d/smbd restart
 ```
 
 ### Необходимые компоненты
-   apt-get install  libssl0.9.8 libossp-uuid16 libxslt1.1 libicu52 libt1-5 t1utils imagemagick unixodbc texlive-base libgfs-1.3-2 ttf-mscorefonts-installer
-   apt-get install apache2
+
+    apt-get install  libssl0.9.8 libossp-uuid16 libxslt1.1 libicu52 libt1-5 t1utils imagemagick unixodbc texlive-base libgfs-1.3-2 ttf-mscorefonts-installer
+    apt-get install apache2
 
 ### Установка
-```
+```bash
 cd /home/smb/1c/1c-8.3.8.1747/linux64/
 tar -xvf deb64*.gz
 ls 1c-enterprise83-common_8.3.*.deb
@@ -29,22 +37,27 @@ service srv1cv83 status
 
 ### Установка HASP
 
-качаем http://www.safenet-sentinel.ru/helpdesk/download-space/#tabs-1
+   качаем http://www.safenet-sentinel.ru/helpdesk/download-space/#tabs-1
 
-   dpkg --add-architecture i386
-   apt-get update
-   apt-get install libc6:i386
+```bash
+dpkg --add-architecture i386
+apt-get update
+apt-get install libc6:i386
 
-   dpkg -i aksusbd_7.40-1_i386.deb 
-   /etc/init.d/aksusbd restart
-   service aksusbd status
-   lsusb 
+dpkg -i aksusbd_7.40-1_i386.deb 
+/etc/init.d/aksusbd restart
+service aksusbd status
+lsusb
+```
+
 ### NetHasp
 
-  mkdir /opt/1C/v8.3/x86_64/conf
+    mkdir /opt/1C/v8.3/x86_64/conf
 
-``
-/opt/1C/v8.3/x86_64/conf/nethasp.ini
+
+Содержимое /opt/1C/v8.3/x86_64/conf/nethasp.ini
+
+```bash /opt/1C/v8.3/x86_64/conf/nethasp.ini
 [NH_COMMON]
 NH_IPX = Disabled ; <--- Здесь запрещаем использовать протокол IPX
 NH_NETBIOS = Disabled ; <--- Здесь запрещаем использовать протокол NetBIOS, лишний трафик нам ни к чему
@@ -67,9 +80,9 @@ NH_SESSION = 15
 NH_SEND_RCV = 30
 ```
 
-
 от 1С пример -- http://its.1c.ru/db/v838doc#bookmark:adm:TI000000291
- ````
+ 
+ ```
  /opt/1C/v8.3/x86_64/conf/nethasp.ini
 [NH_COMMON]
 NH_TCPIP=Enabled
@@ -80,27 +93,30 @@ NH_TCPIP_METHOD=UDP
 NH_USE_BROADCAST=Disabled
 ```
 
-   chown -R usr1cv8:grp1cv8 /opt/1C/v8.3/x86_64/conf
+    chown -R usr1cv8:grp1cv8 /opt/1C/v8.3/x86_64/conf
+
 ### Настройка каталогов обмена
+
 Каталоги обмена Samba 1С
 
-   mkdir /home/smb/exchange && chown -R usr1cv8:grp1cv8 /home/smb/exchange
-   mkdir /home/smb/export && mkdir /home/smb/export/tmp && chown -R usr1cv8:grp1cv8 /home/smb/export
+    mkdir /home/smb/exchange && chown -R usr1cv8:grp1cv8 /home/smb/exchange
+    mkdir /home/smb/export && mkdir /home/smb/export/tmp && chown -R usr1cv8:grp1cv8 /home/smb/export
 
 Каталоги Документооборота
-   chown -R usr1cv8:grp1cv8 /home/smb/1c/docf/ && chmod -R 777 /home/smb/1c/docf/
+     chown -R usr1cv8:grp1cv8 /home/smb/1c/docf/
+     chmod -R 777 /home/smb/1c/docf/`
 
 
 ### Публикация apache24
 
-   cd /opt/1C/v8.3/x86_64/
-   ./webinst -apache24 -wsdir test -dir /var/www/doc02 -connstr "Srvr=127.0.0.1;Ref=doc02;"
-   /etc/init.d/apache2 restart
+    cd /opt/1C/v8.3/x86_64/
+    ./webinst -apache24 -wsdir test -dir /var/www/doc02 -connstr "Srvr=127.0.0.1;Ref=doc02;"
+    /etc/init.d/apache2 restart
 
 
 default.vrd для 1С:Документооборот 2.1
 
-```
+```xml
 default.vrd
 <?xml version="1.0" encoding="UTF-8"?>
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
@@ -128,8 +144,7 @@ default.vrd
 
 ## Разное
 ### Удаление сервера 1С
-
-```
+~~~bash
 # Просмотр установленных пакетов
 dpkg -l | grep 1c-enterprise83 
 # Остановка сервиса
@@ -141,24 +156,25 @@ dpkg -r 1c-enterprise83-server-nls
 dpkg -r 1c-enterprise83-server
 dpkg -r 1c-enterprise83-common-nls
 dpkg -r 1c-enterprise83-common
-```
+~~~
 
 ### Установка шрифтов
 
 копируем "EanBwrP36Tt Normal.Ttf" => /usr/share/fonts/TTF 644 root
-   sudo fc-cache -fv
+`sudo fc-cache -fv`
 
 ### Отладка сервера
-
-   mkdir /opt/1C/v8.3/i386/conf/
-   chown -R usr1cv8:grp1cv8 /opt/1C
-   mkdir /var/log/1c
-   chown -R usr1cv8:grp1cv8 /var/log/1c
-
-
+```bash
+mkdir /opt/1C/v8.3/i386/conf/
+chown -R usr1cv8:grp1cv8 /opt/1C
+mkdir /var/log/1c
+chown -R usr1cv8:grp1cv8 /var/log/1c
 ```
+
+
 /opt/1C/v8.3/i386/conf/logcfg.xml
 
+```xml
 <config xmlns="http://v8.1c.ru/v8/tech-log">;
 <dump create="true" location="/var/log/1c/dumps" prntscrn="true" type="2"/>
 <log history="72" location="/var/log/1c">
@@ -187,40 +203,41 @@ dpkg -r 1c-enterprise83-common
       
 ### Технологический журнал от 1С
 
-http://its.1c.ru/db/metod81/content/4868/1/_top/документооборот
 
-```
+[http://its.1c.ru/db/metod81/content/4868/1/_top/документооборот]()
+
+
 /opt/1C/v8.3/i386/conf/logcfg.xml
-
+```
 <?xml version="1.0"?>
 <config xmlns="http://v8.1c.ru/v8/tech-log">
-	<dump create="true" location="C:\DUMPS" type="3" prntscrn="false"/>
-	<log location="C:\LOGS_excp" history="96">
-		<event>
-			<eq property="Name" value="EXCP"/>
-		</event>
-		<property name="all"/>
-	</log>
-	<log location="C:\logs_long" history="28">
-		<event>
-			<ne property="name" value=""/>
-			<ge property="duration" value="200000"/>
-		</event>
-		<property name="all"/>
-	</log>
-	<log location="C:\logs_sql" history="28">
-		<event>
-			<eq property="name" value="SDBL"/>
-		</event>
-		<property name="all"/>
-	</log>
-	<plansql/>
+  <dump create="true" location="C:\DUMPS" type="3" prntscrn="false"/>
+  <log location="C:\LOGS_excp" history="96">
+    <event>
+      <eq property="Name" value="EXCP"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <log location="C:\logs_long" history="28">
+    <event>
+      <ne property="name" value=""/>
+      <ge property="duration" value="200000"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <log location="C:\logs_sql" history="28">
+    <event>
+      <eq property="name" value="SDBL"/>
+    </event>
+    <property name="all"/>
+  </log>
+  <plansql/>
 </config>
 ```
 
 ### Проброс USB для HASP для KVM
 
-https://pve.proxmox.com/wiki/USB_physical_port_mapping
+[https://pve.proxmox.com/wiki/USB_physical_port_mapping]()
 
 ```
 root@pve1:~# qm monitor 100
@@ -246,10 +263,14 @@ usb0: host=2-1.4
 usb1: host=2-1.3
 ```
 
-  * https://habrahabr.ru/post/265065/ -- Проброс USB в виртуалку по сети средствами UsbRedir и QEMU
-  * http://ivnet.pro/probros-usb-ustrojstv-v-proxmox/ -- Проброс USB устройств в Proxmox
-  * http://teapied.blogspot.ru/2012/10/proxmox-usb.html -- Proxmox. Проброс usb-устройств в гостевую виртуальную машину. На примере ключей 1С HASP 
+  * [https://habrahabr.ru/post/265065/]() -- Проброс USB в виртуалку по сети средствами UsbRedir и QEMU
+  * [http://ivnet.pro/probros-usb-ustrojstv-v-proxmox/]() -- Проброс USB устройств в Proxmox
+  * [http://teapied.blogspot.ru/2012/10/proxmox-usb.html]() -- Proxmox. Проброс usb-устройств в гостевую виртуальную машину. На примере ключей 1С HASP 
 ### Отправка сообщений jabber из 1С
 
-Используем скрипт notification_jabber.py -- https://github.com/vint21h/nagios-notification-jabber
-   apt-get install python-xmpp
+Используем скрипт notification_jabber.py -- [https://github.com/vint21h/nagios-notification-jabber]()
+
+    apt-get install python-xmpp
+
+
+
