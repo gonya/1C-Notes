@@ -2,6 +2,7 @@
 ## Установка сервера 1С Предприятия
 
 ### Установка Samba Windows shares
+
 ```bash
 apt-get install mc htop
 mkdir /home/smb
@@ -54,10 +55,9 @@ lsusb
 
     mkdir /opt/1C/v8.3/x86_64/conf
 
-
 Содержимое /opt/1C/v8.3/x86_64/conf/nethasp.ini
 
-```bash /opt/1C/v8.3/x86_64/conf/nethasp.ini
+```
 [NH_COMMON]
 NH_IPX = Disabled ; <--- Здесь запрещаем использовать протокол IPX
 NH_NETBIOS = Disabled ; <--- Здесь запрещаем использовать протокол NetBIOS, лишний трафик нам ни к чему
@@ -80,10 +80,10 @@ NH_SESSION = 15
 NH_SEND_RCV = 30
 ```
 
-от 1С пример -- http://its.1c.ru/db/v838doc#bookmark:adm:TI000000291
+
+от 1С пример -- [http://its.1c.ru/db/v838doc#bookmark:adm:TI000000291]()
  
- ```
- /opt/1C/v8.3/x86_64/conf/nethasp.ini
+```
 [NH_COMMON]
 NH_TCPIP=Enabled
 [NH_TCPIP]
@@ -103,8 +103,9 @@ NH_USE_BROADCAST=Disabled
     mkdir /home/smb/export && mkdir /home/smb/export/tmp && chown -R usr1cv8:grp1cv8 /home/smb/export
 
 Каталоги Документооборота
-     chown -R usr1cv8:grp1cv8 /home/smb/1c/docf/
-     chmod -R 777 /home/smb/1c/docf/`
+
+    chown -R usr1cv8:grp1cv8 /home/smb/1c/docf/
+    chmod -R 777 /home/smb/1c/docf/`
 
 
 ### Публикация apache24
@@ -114,9 +115,9 @@ NH_USE_BROADCAST=Disabled
     /etc/init.d/apache2 restart
 
 
-default.vrd для 1С:Документооборот 2.1
+`default.vrd` для 1С:Документооборот 2.1
 
-```xml
+~~~
 default.vrd
 <?xml version="1.0" encoding="UTF-8"?>
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
@@ -140,7 +141,7 @@ default.vrd
     <point name="MEDO2013" alias="medo2013.1cws" enable="false" />
     <point name="MobileDMVersionService" alias="mobileDMVersionService.1cws" enable="true" />
 </ws>
-```
+~~~
 
 ## Разное
 ### Удаление сервера 1С
