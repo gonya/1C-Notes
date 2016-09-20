@@ -3,7 +3,7 @@
 
 ### Установка Samba Windows shares
 
-```bash
+``` bash
 apt-get install mc htop
 mkdir /home/smb
 chown -R nobody:nogroup /home/smb
@@ -145,6 +145,7 @@ default.vrd
 
 ## Разное
 ### Удаление сервера 1С
+
 ~~~bash
 # Просмотр установленных пакетов
 dpkg -l | grep 1c-enterprise83 
@@ -264,14 +265,12 @@ usb0: host=2-1.4
 usb1: host=2-1.3
 ```
 
-  * [https://habrahabr.ru/post/265065/]() -- Проброс USB в виртуалку по сети средствами UsbRedir и QEMU
-  * [http://ivnet.pro/probros-usb-ustrojstv-v-proxmox/]() -- Проброс USB устройств в Proxmox
-  * [http://teapied.blogspot.ru/2012/10/proxmox-usb.html]() -- Proxmox. Проброс usb-устройств в гостевую виртуальную машину. На примере ключей 1С HASP 
+* [https://habrahabr.ru/post/265065/]() -- Проброс USB в виртуалку по сети средствами UsbRedir и QEMU
+* [http://ivnet.pro/probros-usb-ustrojstv-v-proxmox/]() -- Проброс USB устройств в Proxmox
+* [http://teapied.blogspot.ru/2012/10/proxmox-usb.html]() -- Proxmox. Проброс usb-устройств в гостевую виртуальную машину. На примере ключей 1С HASP 
+
 ### Отправка сообщений jabber из 1С
 
 Используем скрипт notification_jabber.py -- [https://github.com/vint21h/nagios-notification-jabber]()
 
     apt-get install python-xmpp
-
-
-
