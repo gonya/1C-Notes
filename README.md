@@ -1,13 +1,13 @@
 # 1C-Notes
-## Установка сервера 1С Предприятия
+## Установка сервера 1С Предприятия ubuntu 14.04
 
 ### Установка Samba Windows shares
 
 ``` bash
-apt-get install mc htop
 mkdir /home/smb
 chown -R nobody:nogroup /home/smb
-chmod -R 777 /home/smb && echo [smb] >> /etc/samba/smb.conf
+chmod -R 777 /home/smb
+echo [smb] >> /etc/samba/smb.conf
 echo comment = smb >> /etc/samba/smb.conf
 echo  path = /home/smb >> /etc/samba/smb.conf
 echo     guest ok = yes >> /etc/samba/smb.conf
@@ -38,7 +38,7 @@ service srv1cv83 status
 
 ### Установка HASP
 
-   качаем http://www.safenet-sentinel.ru/helpdesk/download-space/#tabs-1
+   качаем [http://www.safenet-sentinel.ru/helpdesk/download-space/#tabs-1]()
 
 ```bash
 dpkg --add-architecture i386
@@ -118,28 +118,27 @@ NH_USE_BROADCAST=Disabled
 `default.vrd` для 1С:Документооборот 2.1
 
 ~~~
-default.vrd
 <?xml version="1.0" encoding="UTF-8"?>
 <point xmlns="http://v8.1c.ru/8.2/virtual-resource-system"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 base="/do21"
                 ib="Srvr=127.0.0.1;Ref=do21;">
-<ws pointEnableCommon="false">
-    <point name="AddressSystem" alias="AddressSystem.1cws" enable="false" />
-    <point name="DMMessageService" alias="dmmessage.1cws" enable="false" />
-    <point name="DMService" alias="dm.1cws" enable="false" />
+<ws pointEnableCommon="true">
+    <point name="AddressSystem" alias="AddressSystem.1cws" enable="true" />
+    <point name="DMMessageService" alias="dmmessage.1cws" enable="true" />
+    <point name="DMService" alias="dm.1cws" enable="true" />
     <point name="DMX" alias="DMX.1cws" enable="true" />
-    <point name="EnterpriseDataExchange_1_0_1_1" alias="EnterpriseDataExchange_1_0_1_1.1cws" enable="false" />
-    <point name="EnterpriseDataUpload_1_0_1_1" alias="EnterpriseDataUpload_1_0_1_1.1cws" enable="false" />
-    <point name="Exchange" alias="exchange.1cws" enable="false" />
-    <point name="Exchange_2_0_1_6" alias="exchange_2_0_1_6.1cws" enable="false" />
-    <point name="Files" alias="files.1cws" enable="false" />
-    <point name="InterfaceVersion" alias="InterfaceVersion.1cws" enable="false" />
-    <point name="MEDO" alias="medo.1cws" enable="false" />
-    <point name="MEDO1C" alias="medo1c.1cws" enable="false" />
-    <point name="MEDO2013" alias="medo2013.1cws" enable="false" />
+    <point name="EnterpriseDataExchange_1_0_1_1" alias="EnterpriseDataExchange_1_0_1_1.1cws" enable="true" />
+    <point name="EnterpriseDataUpload_1_0_1_1" alias="EnterpriseDataUpload_1_0_1_1.1cws" enable="true" />
+    <point name="Exchange" alias="exchange.1cws" enable="true" />
+    <point name="Exchange_2_0_1_6" alias="exchange_2_0_1_6.1cws" enable="true" />
+    <point name="Files" alias="files.1cws" enable="true" />
+    <point name="InterfaceVersion" alias="InterfaceVersion.1cws" enable="true" />
+    <point name="MEDO" alias="medo.1cws" enable="true" />
+    <point name="MEDO1C" alias="medo1c.1cws" enable="true" />
     <point name="MobileDMVersionService" alias="mobileDMVersionService.1cws" enable="true" />
+    <point name="MEDO2013" alias="medo2013.1cws" enable="true" />
 </ws>
 ~~~
 
