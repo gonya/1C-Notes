@@ -105,7 +105,7 @@ NH_USE_BROADCAST=Disabled
 Каталоги Документооборота
 
     chown -R usr1cv8:grp1cv8 /home/smb/1c/docf/
-    chmod -R 777 /home/smb/1c/docf/`
+    chmod -R 777 /home/smb/1c/docf/
 
 
 ### Публикация apache24
